@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Redireccionando a Nequi</title>
+    <script>
+        // Redireccionar a la app de Nequi
+        window.location.href = "nequi://sendmoney?phone=3116297791";
+        // Si no se abre la app, después de 3 segundos redirige a una página de ayuda o instrucciones
+        setTimeout(() => {
+            window.location.href = "https://devf3.giyhub.io/fresascremas/instrucciones-pago"; // Reemplaza con tu URL de ayuda
+        }, 3000); // 3 segundos
+    </script>
+</head>
+<body>
+    <h3>Redirigiendo a la app de Nequi para realizar el pago...</h3>
+    <p>Si no eres redirigido automáticamente, <a href="nequi://sendmoney?phone=3116297791">haz clic aquí</a>.</p>
+</body>
+</html>
