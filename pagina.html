@@ -3,126 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Pedido de Toppings</title>
+    <title>Hacer Pedido - Fresas Con Crema</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
- 
-        /* Estilos generales */
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-color: #F75C6C;
-            margin: 0;
+        :root {
+            --primary-color: #F75C6C;
+            --secondary-color: #FFC0CB;
+            --accent-color: #ff6666;
+            --text-color: #efebeb;
         }
 
-        /* Contenedor del formulario */
-        .pedido-container {
-            background-color: #fff;
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
             padding: 20px;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .toppings-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .topping-option {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             text-align: center;
         }
 
-        /* Título */
-        .pedido-container h2 {
-            color: #333;
+        .topping-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
         }
 
-        /* Label y Select */
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        select, input {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-        }
-
-        /* Botón */
-        button {
-            background-color: #28a745;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 15px;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        .datos-cliente {
+        .topping-option input[type="checkbox"] {
             display: none;
-            margin-top: 10px;
+        }
+
+        .topping-option label {
+            cursor: pointer;
+        }
+
+        .topping-option input[type="checkbox"]:checked + label {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, var(--accent-color), #ff9999);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 102, 102, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 102, 102, 0.4);
+            background: linear-gradient(45deg, #ff9999, var(--accent-color));
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-container {
+            animation: fadeIn 0.8s ease-out;
         }
     </style>
-    
 </head>
 <body>
+    <div class="container">
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Volver al inicio
+        </a>
+        
+        <div class="form-container" data-aos="fade-up">
+            <h1>¡Haz tu Pedido!</h1>
+            
+            <form id="pedidoForm" onsubmit="return validarFormulario()">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
 
-   <div class="pedido-container">
-        <h2>Selecciona tu Topping</h2>
-        <form id="pedidoFormWhatsApp">
-            <!-- Campo para seleccionar el topping -->
-            <label for="topping">Elige un topping:</label>
-            <select id="topping" name="topping" required>
-                <option value="" disabled selected>Selecciona un topping</option>
-                <option value="Galleta Oreo">Galleta Oreo</option>
-                <option value="Piazza">Piazza</option>
-                <option value="Chocolatina">Chocolatina</option>
-                <option value="Solo Fresas">Solo Fresas</option>
-            </select>
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </div>
 
-            <!-- Campos de datos del cliente, ocultos inicialmente -->
-            <div class="datos-cliente" id="datosCliente">
-                <label for="nombre">Nombre Completo:</label>
-                <input type="text" id="nombre" name="nombre" required>
+                <div class="form-group">
+                    <label for="direccion">Dirección de entrega</label>
+                    <input type="text" id="direccion" name="direccion" required>
+                </div>
 
-                <label for="direccion">Dirección de Pedido:</label>
-                <input type="text" id="direccion" name="direccion" required>
+                <div class="form-group">
+                    <label>Tamaño</label>
+                    <select name="tamano" required>
+                        <option value="">Selecciona un tamaño</option>
+                        <option value="pequeno">Pequeño</option>
+                        <option value="mediano">Mediano</option>
+                        <option value="grande">Grande</option>
+                    </select>
+                </div>
 
-                <button type="submit">Enviar por WhatsApp</button>
-            </div>
-        </form>
+                <div class="form-group">
+                    <label>Toppings (opcional)</label>
+                    <div class="toppings-container">
+                        <div class="topping-option">
+                            <input type="checkbox" id="chocolate" name="toppings[]" value="chocolate">
+                            <label for="chocolate">Chocolate</label>
+                        </div>
+                        <div class="topping-option">
+                            <input type="checkbox" id="caramelo" name="toppings[]" value="caramelo">
+                            <label for="caramelo">Caramelo</label>
+                        </div>
+                        <div class="topping-option">
+                            <input type="checkbox" id="granola" name="toppings[]" value="granola">
+                            <label for="granola">Granola</label>
+                        </div>
+                        <div class="topping-option">
+                            <input type="checkbox" id="almendras" name="toppings[]" value="almendras">
+                            <label for="almendras">Almendras</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="comentarios">Comentarios adicionales</label>
+                    <textarea id="comentarios" name="comentarios" rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Enviar Pedido
+                </button>
+            </form>
+        </div>
     </div>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Muestra los campos de datos del cliente cuando el usuario selecciona un topping
-        document.getElementById('topping').addEventListener('change', function() {
-            document.getElementById('datosCliente').style.display = 'block';
+        AOS.init({
+            duration: 1000,
+            once: true
         });
 
-        // Maneja el envío del formulario
-        document.getElementById('pedidoFormWhatsApp').onsubmit = function(e) {
-            e.preventDefault();
-
-            // Obtén los valores de los campos
+        function validarFormulario() {
+            // Aquí puedes agregar validaciones personalizadas
             const nombre = document.getElementById('nombre').value;
+            const telefono = document.getElementById('telefono').value;
             const direccion = document.getElementById('direccion').value;
 
-            // Configura el mensaje para WhatsApp
-            const numero = '573116297791'; // Cambia esto por tu número en formato internacional
-            const mensaje = `Pedido de Fresas_crema: Nombre: ${nombre}   Dirección: ${direccion}`;
+            if (nombre.trim() === '' || telefono.trim() === '' || direccion.trim() === '') {
+                alert('Por favor, completa todos los campos requeridos');
+                return false;
+            }
 
-            // Abre WhatsApp con el mensaje prellenado
-            window.open(`https://wa.me/${3116297791}?text=${encodeURIComponent(mensaje)}`, '_blank');
-        };
+            // Aquí puedes agregar la lógica para enviar el formulario
+            alert('¡Gracias por tu pedido! Te contactaremos pronto.');
+            return false; // Previene el envío del formulario para esta demo
+        }
     </script>
-
 </body>
 </html>
