@@ -7,301 +7,273 @@
     <meta name="keywords" content="fresas, crema, postres, deliciosos, Colombia">
     <meta name="author" content="Fresa.Lover">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <title>Fresas Con Crema</title>
     <style>
+        :root {
+            --primary-color: #ff4d6d;
+            --secondary-color: #ff8fa3;
+            --accent-color: #ffb3c1;
+            --text-color: #ffffff;
+            --overlay-color: rgba(255, 77, 109, 0.95);
+            --card-bg: rgba(255, 255, 255, 0.15);
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom right, #F75C6C, #FFC0CB);
-            color: #efebeb;
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
         header {
-            background-color: #333333;
-            color: #ffffff;
+            background: linear-gradient(270deg, #ff4d6d, #ff758c, #ff8fa3);
+            background-size: 600% 600%;
+            animation: backgroundGradient 15s ease infinite;
             padding: 20px 0;
             text-align: center;
-            border-bottom: 2px solid #444444;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+        }
 
         .container {
-            width: 80%;
+            width: 90%;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             text-align: center;
         }
 
-
-        h1, h2 {
-            color: #ffffff;
-            font-size: 20px;
+        h1 {
+            font-size: 3.5em;
+            margin: 0;
+            background: linear-gradient(45deg, #ffffff, #ffe5e5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
         }
 
+        h2 {
+            color: #ffffff;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
 
-        h1 {
-            font-size: 2.5em;
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            padding: 20px;
+        }
+
+        .image-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .image-card img.error {
+            object-fit: contain;
+            padding: 20px;
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .image-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .image-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, var(--overlay-color), transparent);
+            padding: 30px 20px;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .image-overlay h3 {
+            color: #ffffff;
+            font-size: 1.5em;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .image-overlay p {
+            color: rgba(255, 255, 255, 0.9);
             margin: 0;
-            animation: fadeIn 1s ease-in-out;
-            transition: transform 0.5s ease, box-shadow 0.5 ease;
+            font-size: 1.1em;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            color: #fff;
+            background: linear-gradient(45deg, #ff4d6d, #ff758c);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(255,77,109,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255,77,109,0.5);
+            background: linear-gradient(45deg, #ff758c, #ff4d6d);
         }
 
         @keyframes backgroundGradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-        header {
-        background: linear-gradient(270deg, #f36969, #cd5b87, #f1a1d5);
-        background-size: 600% 600%;
-        animation: backgroundGradient 8s ease infinite;
-        color: #ffffff;
-        padding: 20px 0;
-        text-align: center;
-        border-bottom: 2px solid #444444;
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-
-      
-        @keyframes slideUp {
-         0% {
-        transform: translateY(20px);
-        opacity: 0;
-         }
-        100% {
-        transform: translateY(0);
-        opacity: 1;
-        }
-    }  
-
-    h1, h2 {
-    animation: slideUp 1s ease-in-out;
-    }
-
-    .image-container img:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.8);
-    filter: brightness(1.1) saturate(1.2);
-    }
-
-    .social-media a {
-    text-decoration: none;
-    color: #ff6666;
-    margin: 0 10px;
-    font-size: 1.2em;
-    transition: color 0.3s ease, transform 0.3s ease;
-    border-radius: 5px;
-    padding: 8px 12px;
-    display: inline-block;
-    }
-
-    .social-media a:hover {
-    color: #ffcc00;
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: scale(1.2);
-    }
-    footer p {
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-    }
-
-    .social-media img {
-    transition: box-shadow 0.3s ease;
-    }
-
-    .social-media img:hover {
-     box-shadow: 0px 0px 20px 10px #ff6666;
-    }
-
-    .container {
-    animation: fadeIn 1s ease-in-out;
-    }
-
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-    .nav-links a {
-    text-decoration: none;
-    color: #ffcc00;
-    font-weight: bold;
-    transition: color 0.3s ease, border-bottom 0.3s ease;
-    border-bottom: 2px solid transparent;
-}
-
-    .nav-links a:hover {
-    color: #ffffff;
-    border-bottom: 2px solid #ffffff;
-    }     
-
-        .image-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            margin-top: 20px;
-            animation: fadeInUp 1s ease-in-out;
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
-        .image-container img {
-            width: 300px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .floating {
+            animation: float 3s ease-in-out infinite;
         }
 
-        .image-container img:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.8);
-        }
-
-        .social-media a {
-            text-decoration: none;
-            color: #ff6666;
-            margin: 0 10px;
+        p {
             font-size: 1.2em;
-            transition: color 0.3s ease, transform 0.6s ease;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto 30px auto;
         }
-
-        .social-media a:hover {
-            color: #ffcc00;
-            transform: scale(1.1);
-            transition: transform 0.5s ease, box-shadow 0.5 ease;
-        }
-
-        footer {
-            background-color: #222222;
-            color: #ffffff;
-            text-align: center;
-            padding: 10px 0;
-            position: relative;
-            width: 100%;
-            bottom: 0;
-            transition: background-color 0.3s ease;
-        }
-
-        footer:hover {
-            background-color: #444444;
-        }
-
-        strong {
-            color: #ff6666;
-        }
-        .social-media a {
-    position: relative;
-}
-
-.social-media a::after {
-    content: attr(data-tooltip); /* Contenido del tooltip */
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.75);
-    color: #ffffff;
-    padding: 5px;
-    border-radius: 5px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease;
-    font-size: 0.8em;
-    white-space: nowrap;
-}
-
-.social-media a:hover::after {
-    opacity: 1;
-    visibility: visible;
-}
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.button {
-    display: inline-block;
-    padding: 50px, 50px;
-    font-size: 25px;
-    color: black;
-    background-color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3 ease;
-    text-decoration: none;
-}
-.button:hover {
-    background-color: #b94aa3;
-}
-
-
-</style>
+    </style>
 </head>
-
 <body>
-
     <header>
-        <h1>Fresas Con Crema</h1>
+        <h1 class="floating">Fresas Con Crema</h1>
     </header>
     
     <div class="container">
-        <section> 
+        <section data-aos="fade-up" data-aos-duration="1000"> 
             <h2>Servicios</h2>
-            <p>Ofrecemos deliciosas fresas con crema, preparadas con ingredientes frescos y de alta calidad. Contáctanos y reserva el tuyo.
-            </p>
-            
-            <p>Envios a domicilio</p>
+            <p>Ofrecemos deliciosas fresas con crema, preparadas con ingredientes frescos y de alta calidad. Contáctanos y reserva el tuyo.</p>
         </section>
 
         <div class="image-container">
-            <img src="img.caramelo.jpg" alt="Fresas con crema con caramelo">
-            <img src="img.crema.jpg" alt="Vaso de fresas con crema">
-            <img src="img.fresas.topings.jpg" alt="tipos de vasos de fresas">
+            <div class="image-card" data-aos="zoom-in" data-aos-delay="100">
+                <img src="/img.fresas.topings.jpg" alt="Fresas con Toppings" onerror="this.classList.add('error'); this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%23ffffff\' d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z\'/%3E%3C/svg%3E';">
+                <div class="image-overlay">
+                    <h3>Fresas con Toppings</h3>
+                    <p>Deliciosa combinación de sabores</p>
+                </div>
+            </div>
+            <div class="image-card" data-aos="zoom-in" data-aos-delay="200">
+                <img src="/img.crema.jpg" alt="Crema Especial" onerror="this.classList.add('error'); this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%23ffffff\' d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z\'/%3E%3C/svg%3E';">
+                <div class="image-overlay">
+                    <h3>Crema Especial</h3>
+                    <p>Nuestra receta secreta</p>
+                </div>
+            </div>
+            <div class="image-card" data-aos="zoom-in" data-aos-delay="300">
+                <img src="/img.caramelo.jpg" alt="Caramelo" onerror="this.classList.add('error'); this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%23ffffff\' d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z\'/%3E%3C/svg%3E';">
+                <div class="image-overlay">
+                    <h3>Toque de Caramelo</h3>
+                    <p>El complemento perfecto</p>
+                </div>
+            </div>
         </div>
-        <br>
-        <br>
 
-        <p>HAZ CLICK EN ESTE BOTON PARA ELEGIR TU TOPPING</p>
-        <a href="pagina.html">
-            <button class="button">Elegir topping</button>
-        </a>
-        <br>
-        <br>
+        <a href="formulario.html" class="button" data-aos="fade-up">¡Haz tu Pedido Ahora!</a>
 
-        <section class="contact-info">
-            <h2>Contáctanos para mas informacion </h2>
-            <p><strong>Teléfono:</strong> +57 3116297791 <i class="fas fa-phone" style="color: #000; font-size: 20px;"></i></p>
-            <p><strong>WhatsApp:</strong> <a href="https://wa.me/573116297791" target="_blank">Haz click aquí</a> <i class="fab fa-whatsapp" style="color: #ff6666; font-size: 20px;"></i></p>
-        </section>
-
-        <br>
-        <br>
-
-        <section class="social-media">
-            <h2>Visitanos y siguenos 
-                <br>
-                en nuestras redes sociales</h2>
-            <a href="https://www.facebook.com/profile.php?id=100091450495594" target="_blank" data-tooltip="Siguenos en Facebook">
-                <i class="fab fa-facebook"></i> Facebook
-            </a>
-            <a href="https://instagram.com/cremafresa_lover00" target="_blank" data-tooltip="Siguenos en Instagram">
-                <i class="fab fa-instagram"></i> Instagram
-            </a>
-            <br>
-            <br>
-            <br>
-            <h3>Realiza tu pago aquí:</h3>
-            <p>Haz click en el código QR para pagar directamente a través de Nequi.</p>
-            <a href="nequi://sendmoney?phone=3116297791" data-tooltip="Pagos"> 
-                <img src="img.nequi.jpg" alt="Código QR Nequi" style="width: 150px; height: 150px;">
-            </a>
-        </section>
-
-
+        <div class="social-media" data-aos="fade-up">
+            <a href="#" class="fab fa-facebook" data-tooltip="Síguenos en Facebook"></a>
+            <a href="#" class="fab fa-instagram" data-tooltip="Síguenos en Instagram"></a>
+            <a href="#" class="fab fa-whatsapp" data-tooltip="Contáctanos por WhatsApp"></a>
+        </div>
     </div>
 
-    <footer>
-        <p>&copy; Team Of Strawberries. Todos los derechos reservados.</p>
-    </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            mirror: false
+        });
+
+        // GSAP Animations
+        gsap.from("header", {
+            duration: 1.5,
+            y: -100,
+            opacity: 0,
+            ease: "power4.out"
+        });
+
+        gsap.from(".image-card", {
+            duration: 1,
+            stagger: 0.2,
+            opacity: 0,
+            y: 50,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+                trigger: ".image-container",
+                start: "top center+=100",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
