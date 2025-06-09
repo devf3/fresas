@@ -4,101 +4,198 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hacer Pedido - Fresas Con Crema</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #F75C6C;
-            --secondary-color: #FFC0CB;
-            --accent-color: #ff6666;
-            --text-color: #efebeb;
+            --primary-color: #e31837;
+            --secondary-color: #ff1f4d;
+            --accent-color: #b30000;
+            --text-color: #ffffff;
+            --dark-bg: rgba(0, 0, 0, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Poppins', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
             color: var(--text-color);
             min-height: 100vh;
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--dark-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
         }
 
         .container {
             max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            animation: fadeInScale 0.5s ease-out;
         }
 
         .form-container {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--glass-bg);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--card-shadow);
         }
 
         h1 {
             text-align: center;
-            color: #fff;
-            font-size: 2.5em;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInScale 0.8s ease-out;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
+            animation: slideInRight 0.5s ease-out forwards;
+            opacity: 0;
         }
+
+        .form-group:nth-child(odd) {
+            animation: slideInLeft 0.5s ease-out forwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        .form-group:nth-child(6) { animation-delay: 0.6s; }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #fff;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         input[type="text"],
-        input[type="email"],
         input[type="tel"],
         select,
         textarea {
             width: 100%;
-            padding: 12px;
-            border: none;
+            padding: 1rem;
+            background: var(--dark-bg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            font-size: 16px;
-            transition: all 0.3s ease;
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
         }
 
         input:focus,
         select:focus,
         textarea:focus {
             outline: none;
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(255, 31, 77, 0.3);
         }
 
         .toppings-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
         .topping-option {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px;
+            background: var(--dark-bg);
+            padding: 1rem;
             border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .topping-option:hover {
-            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-3px);
+            border-color: var(--secondary-color);
         }
 
         .topping-option input[type="checkbox"] {
@@ -107,146 +204,317 @@
 
         .topping-option label {
             cursor: pointer;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .topping-option input[type="checkbox"]:checked + label {
-            color: var(--accent-color);
+            color: var(--secondary-color);
+        }
+
+        .topping-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--secondary-color);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .topping-option input[type="checkbox"]:checked ~ ::before {
+            opacity: 0.1;
+        }
+
+        #total {
+            font-size: 1.5rem;
             font-weight: bold;
+            color: var(--secondary-color);
+            text-align: center;
+            margin: 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .submit-btn {
-            background: linear-gradient(45deg, var(--accent-color), #ff9999);
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
             width: 100%;
-            font-size: 1.1em;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 102, 102, 0.3);
+            padding: 1rem;
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
+            border: none;
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+            animation: fadeInScale 0.5s ease-out;
+            animation-delay: 0.7s;
+            animation-fill-mode: backwards;
         }
 
         .submit-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 102, 102, 0.4);
-            background: linear-gradient(45deg, #ff9999, var(--accent-color));
+            box-shadow: var(--card-shadow);
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+        }
+
+        .submit-btn i {
+            margin-right: 0.5rem;
         }
 
         .back-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--dark-bg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: var(--text-color);
             text-decoration: none;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-bottom: 1.5rem;
+            animation: slideInLeft 0.5s ease-out;
         }
 
         .back-btn:hover {
             transform: translateX(-5px);
+            background: rgba(0, 0, 0, 0.8);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .container {
+                margin: 1rem auto;
+                padding: 0 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .toppings-container {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .form-container {
-            animation: fadeIn 0.8s ease-out;
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            body {
+                background: var(--primary-color);
+            }
         }
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-strawberry"></i>
+            Fresas Con Crema
+        </a>
+    </nav>
+
     <div class="container">
         <a href="index.html" class="back-btn">
-            <i class="fas fa-arrow-left"></i> Volver al inicio
+            <i class="fas fa-arrow-left"></i>
+            Volver al inicio
         </a>
         
-        <div class="form-container" data-aos="fade-up">
+        <div class="form-container">
             <h1>¡Haz tu Pedido!</h1>
             
             <form id="pedidoForm" onsubmit="return validarFormulario()">
                 <div class="form-group">
-                    <label for="nombre">Nombre completo</label>
-                    <input type="text" id="nombre" name="nombre" required>
+                    <label for="nombre">
+                        <i class="fas fa-user"></i>
+                        Nombre completo
+                    </label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo">
                 </div>
 
                 <div class="form-group">
-                    <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" name="telefono" required>
+                    <label for="telefono">
+                        <i class="fas fa-phone"></i>
+                        Teléfono
+                    </label>
+                    <input type="tel" id="telefono" name="telefono" required placeholder="Tu número de teléfono">
                 </div>
 
                 <div class="form-group">
-                    <label for="direccion">Dirección de entrega</label>
-                    <input type="text" id="direccion" name="direccion" required>
+                    <label for="direccion">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Dirección de entrega
+                    </label>
+                    <input type="text" id="direccion" name="direccion" required placeholder="Tu dirección completa">
                 </div>
 
                 <div class="form-group">
-                    <label>Tamaño</label>
-                    <select name="tamano" required>
+                    <label>
+                        <i class="fas fa-box"></i>
+                        Tamaño
+                    </label>
+                    <select name="tamano" id="tamano" required onchange="calcularTotal()">
                         <option value="">Selecciona un tamaño</option>
-                        <option value="pequeno">Pequeño</option>
-                        <option value="mediano">Mediano</option>
-                        <option value="grande">Grande</option>
+                        <option value="pequeno">Pequeño - $10.000</option>
+                        <option value="mediano">Mediano - $13.000</option>
+                        <option value="grande">Grande - $15.000</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Toppings (opcional)</label>
+                    <label>
+                        <i class="fas fa-cookie"></i>
+                        Toppings (opcional - $1.000 c/u)
+                    </label>
                     <div class="toppings-container">
                         <div class="topping-option">
-                            <input type="checkbox" id="chocolate" name="toppings[]" value="chocolate">
-                            <label for="chocolate">Chocolate</label>
+                            <input type="checkbox" id="oreo" name="toppings[]" value="oreo" onchange="calcularTotal()">
+                            <label for="oreo">
+                                <i class="fas fa-cookie"></i>
+                                Galleta Oreo
+                            </label>
                         </div>
                         <div class="topping-option">
-                            <input type="checkbox" id="caramelo" name="toppings[]" value="caramelo">
-                            <label for="caramelo">Caramelo</label>
+                            <input type="checkbox" id="piazza" name="toppings[]" value="piazza" onchange="calcularTotal()">
+                            <label for="piazza">
+                                <i class="fas fa-cookie-bite"></i>
+                                Piazza
+                            </label>
                         </div>
                         <div class="topping-option">
-                            <input type="checkbox" id="granola" name="toppings[]" value="granola">
-                            <label for="granola">Granola</label>
+                            <input type="checkbox" id="chocolatina" name="toppings[]" value="chocolatina" onchange="calcularTotal()">
+                            <label for="chocolatina">
+                                <i class="fas fa-candy-cane"></i>
+                                Chocolatina
+                            </label>
                         </div>
                         <div class="topping-option">
-                            <input type="checkbox" id="almendras" name="toppings[]" value="almendras">
-                            <label for="almendras">Almendras</label>
+                            <input type="checkbox" id="chocorramo" name="toppings[]" value="chocorramo" onchange="calcularTotal()">
+                            <label for="chocorramo">
+                                <i class="fas fa-cookie"></i>
+                                Chocorramo
+                            </label>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="comentarios">Comentarios adicionales</label>
-                    <textarea id="comentarios" name="comentarios" rows="4"></textarea>
+                    <label>Total a Pagar:</label>
+                    <div id="total">$0</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="comentarios">
+                        <i class="fas fa-comment"></i>
+                        Comentarios adicionales
+                    </label>
+                    <textarea id="comentarios" name="comentarios" rows="4" placeholder="¿Alguna instrucción especial?"></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">
-                    <i class="fas fa-paper-plane"></i> Enviar Pedido
+                    <i class="fas fa-paper-plane"></i>
+                    Enviar Pedido
                 </button>
             </form>
         </div>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
+        function obtenerPrecioBase() {
+            const tamano = document.getElementById('tamano').value;
+            switch(tamano) {
+                case 'pequeno': return 10000;
+                case 'mediano': return 13000;
+                case 'grande': return 15000;
+                default: return 0;
+            }
+        }
+
+        function calcularTotal() {
+            const precioBase = obtenerPrecioBase();
+            const toppingsSeleccionados = document.querySelectorAll('input[name="toppings[]"]:checked').length;
+            const precioTopping = 1000;
+            const total = precioBase + (toppingsSeleccionados * precioTopping);
+            document.getElementById('total').textContent = `$${total.toLocaleString()}`;
+            return total;
+        }
 
         function validarFormulario() {
-            // Aquí puedes agregar validaciones personalizadas
             const nombre = document.getElementById('nombre').value;
             const telefono = document.getElementById('telefono').value;
             const direccion = document.getElementById('direccion').value;
-
-            if (nombre.trim() === '' || telefono.trim() === '' || direccion.trim() === '') {
+            const tamano = document.querySelector('select[name="tamano"]').value;
+            
+            if (nombre.trim() === '' || telefono.trim() === '' || direccion.trim() === '' || tamano === '') {
                 alert('Por favor, completa todos los campos requeridos');
                 return false;
             }
 
-            // Aquí puedes agregar la lógica para enviar el formulario
-            alert('¡Gracias por tu pedido! Te contactaremos pronto.');
-            return false; // Previene el envío del formulario para esta demo
+            const toppingsSeleccionados = [];
+            document.querySelectorAll('input[name="toppings[]"]:checked').forEach(checkbox => {
+                toppingsSeleccionados.push(checkbox.value);
+            });
+            const total = calcularTotal();
+            const precioBase = obtenerPrecioBase();
+
+            const comentarios = document.getElementById('comentarios').value;
+
+            let mensaje = `¡Hola! Quiero hacer un pedido 🍓\n\n`;
+            mensaje += `*Nombre:* ${nombre}\n`;
+            mensaje += `*Teléfono:* ${telefono}\n`;
+            mensaje += `*Dirección:* ${direccion}\n`;
+            mensaje += `*Tamaño:* ${tamano} - $${precioBase.toLocaleString()}\n`;
+            
+            if (toppingsSeleccionados.length > 0) {
+                mensaje += `*Toppings ($1.000 c/u):* ${toppingsSeleccionados.join(', ')}\n`;
+                mensaje += `*Costo Toppings:* $${(toppingsSeleccionados.length * 1000).toLocaleString()}\n`;
+            }
+            
+            mensaje += `*Total a Pagar:* $${total.toLocaleString()}\n`;
+            
+            if (comentarios.trim() !== '') {
+                mensaje += `*Comentarios:* ${comentarios}\n`;
+            }
+
+            const numeroWhatsApp = '573218225925';
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            
+            const urlWhatsAppWeb = `https://web.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
+            const urlWhatsAppMobile = `whatsapp://send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
+            
+            if (isMobile) {
+                window.location.href = urlWhatsAppMobile;
+                
+                setTimeout(() => {
+                    window.location.href = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
+                }, 1000);
+            } else {
+                window.open(urlWhatsAppWeb, '_blank');
+            }
+
+            return false;
         }
     </script>
 </body>

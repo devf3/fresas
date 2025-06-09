@@ -2,18 +2,195 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#e31837">
     <title>Redireccionando a Nequi</title>
-    <script>
-        // Redireccionar a la app de Nequi
-        window.location.href = "nequi://sendmoney?phone=3116297791";
-        // Si no se abre la app, después de 3 segundos redirige a una página de ayuda o instrucciones
-        setTimeout(() => {
-            window.location.href = "https://devf3.giyhub.io/fresascremas/instrucciones-pago"; // Reemplaza con tu URL de ayuda
-        }, 3000); // 3 segundos
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e31837;
+            --secondary-color: #ff1f4d;
+            --accent-color: #b30000;
+            --text-color: #ffffff;
+            --dark-bg: rgba(0, 0, 0, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.6;
+            padding: 1rem;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 90%;
+            width: 400px;
+            box-shadow: var(--card-shadow);
+            animation: fadeInScale 0.5s ease-out;
+        }
+
+        .loading-icon {
+            font-size: 3rem;
+            margin: 1rem 0;
+            color: var(--secondary-color);
+            animation: spin 1.5s infinite linear;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(255, 31, 77, 0.5);
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        p {
+            margin: 1rem 0;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--dark-bg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-shadow);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .action-button i {
+            font-size: 1.2rem;
+        }
+
+        .error-icon {
+            color: var(--accent-color);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            body {
+                background: var(--primary-color);
+            }
+
+            .container {
+                box-shadow: var(--card-shadow);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h3>Redirigiendo a la app de Nequi para realizar el pago...</h3>
-    <p>Si no eres redirigido automáticamente, <a href="nequi://sendmoney?phone=3116297791">haz clic aquí</a>.</p>
+    <div class="container">
+        <i class="fas fa-sync loading-icon"></i>
+        <h3>Redirigiendo a Nequi</h3>
+        <p>
+            Estamos preparando todo para procesar tu pago...
+        </p>
+        <a href="nequi://send?phone=573218225925" class="action-button">
+            <i class="fas fa-external-link-alt"></i>
+            Abrir Nequi
+        </a>
+    </div>
+
+    <script>
+        window.location.href = "nequi://send?phone=573218225925";
+
+        setTimeout(() => {
+            const container = document.querySelector('.container');
+            if (container) {
+                container.innerHTML = `
+                    <i class="fas fa-exclamation-circle loading-icon error-icon"></i>
+                    <h3>No se pudo abrir Nequi</h3>
+                    <p>Parece que no tienes la app de Nequi instalada.</p>
+                    <a href="https://play.google.com/store/apps/details?id=com.nequi.MobileApp" target="_blank" class="action-button">
+                        <i class="fas fa-download"></i>
+                        Descargar Nequi
+                    </a>
+                `;
+            }
+        }, 3000);
+    </script>
 </body>
 </html>

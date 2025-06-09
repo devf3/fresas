@@ -3,269 +3,506 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="fresas.lover" content="Deliciosas fresas con crema, preparadas con ingredientes frescos. Contáctanos y disfruta de nuestro servicio.">
-    <meta name="keywords" content="fresas, crema, postres, deliciosos, Colombia">
-    <meta name="author" content="Fresa.Lover">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <title>Fresas Con Crema</title>
+    <meta name="theme-color" content="#e31837">
+    <title>Fresas Con Crema | Deliciosas Fresas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #ff4d6d;
-            --secondary-color: #ff8fa3;
-            --accent-color: #ffb3c1;
+            --primary-color: #e31837;
+            --secondary-color: #ff1f4d;
+            --accent-color: #b30000;
             --text-color: #ffffff;
-            --overlay-color: rgba(255, 77, 109, 0.95);
-            --card-bg: rgba(255, 255, 255, 0.15);
+            --dark-bg: rgba(0, 0, 0, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        body {
-            font-family: 'Poppins', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
-            color: var(--text-color);
-            overflow-x: hidden;
-            min-height: 100vh;
+        @keyframes floatAnimation {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        header {
-            background: linear-gradient(270deg, #ff4d6d, #ff758c, #ff8fa3);
-            background-size: 600% 600%;
-            animation: backgroundGradient 15s ease infinite;
-            padding: 20px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            pointer-events: none;
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 3.5em;
-            margin: 0;
-            background: linear-gradient(45deg, #ffffff, #ffe5e5);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
-        }
-
-        h2 {
-            color: #ffffff;
-            font-size: 2.2em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .image-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-            padding: 20px;
-        }
-
-        .image-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background: var(--card-bg);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .image-card img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background-color: rgba(255,255,255,0.1);
-        }
-
-        .image-card img.error {
-            object-fit: contain;
-            padding: 20px;
-            background-color: rgba(255,255,255,0.2);
-        }
-
-        .image-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        }
-
-        .image-card:hover img {
-            transform: scale(1.1);
-        }
-
-        .image-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, var(--overlay-color), transparent);
-            padding: 30px 20px;
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .image-overlay h3 {
-            color: #ffffff;
-            font-size: 1.5em;
-            margin: 0 0 10px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .image-overlay p {
-            color: rgba(255, 255, 255, 0.9);
-            margin: 0;
-            font-size: 1.1em;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 15px 40px;
-            font-size: 1.2em;
-            color: #fff;
-            background: linear-gradient(45deg, #ff4d6d, #ff758c);
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(255,77,109,0.4);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        .button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(255,77,109,0.5);
-            background: linear-gradient(45deg, #ff758c, #ff4d6d);
-        }
-
-        @keyframes backgroundGradient {
+        @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        p {
-            font-size: 1.2em;
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-color);
             line-height: 1.6;
-            color: rgba(255, 255, 255, 0.9);
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--dark-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
             max-width: 800px;
-            margin: 0 auto 30px auto;
+            animation: fadeInScale 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--glass-bg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 50px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            animation: floatAnimation 3s ease-in-out infinite;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .products {
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            animation: fadeInScale 0.5s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .features {
+            padding: 4rem 2rem;
+            background: var(--dark-bg);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            transition: var(--transition);
+            animation: slideInRight 0.5s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .contact {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            color: var(--text-color);
+            font-size: 2rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        .payment-methods {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .payment-card {
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .payment-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1 class="floating">Fresas Con Crema</h1>
-    </header>
-    
-    <div class="container">
-        <section data-aos="fade-up" data-aos-duration="1000"> 
-            <h2>Servicios</h2>
-            <p>Ofrecemos deliciosas fresas con crema, preparadas con ingredientes frescos y de alta calidad. Contáctanos y reserva el tuyo.</p>
-        </section>
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <i class="fas fa-strawberry"></i>
+            Fresas Con Crema
+        </a>
+        <div class="nav-links">
+            <a href="#productos">Productos</a>
+            <a href="#caracteristicas">Características</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+    </nav>
 
-        <div class="image-container">
-            <div class="image-card" data-aos="zoom-in" data-aos-delay="100">
-                <img src="/img.fresas.topings.jpg" alt="Fresas con Toppings" onerror="this.classList.add('error'); this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%23ffffff\' d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z\'/%3E%3C/svg%3E';">
-                <div class="image-overlay">
-                    <h3>Fresas con Toppings</h3>
-                    <p>Deliciosa combinación de sabores</p>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Deliciosas Fresas con Crema</h1>
+            <p>Descubre el sabor perfecto de nuestras fresas frescas combinadas con la más cremosa preparación</p>
+            <a href="pagina.html" class="cta-button">
+                <i class="fas fa-shopping-cart"></i>
+                Hacer Pedido Ahora
+            </a>
+        </div>
+    </section>
+
+    <section id="productos" class="products">
+        <h2 class="section-title">Nuestros Productos</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="img.fresas.topings.jpg" alt="Fresas con Toppings" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Fresas con Toppings</h3>
+                    <p class="product-description">Deliciosas fresas cubiertas con tus toppings favoritos</p>
+                    <span class="product-price">Desde $10.000</span>
                 </div>
             </div>
-            <div class="image-card" data-aos="zoom-in" data-aos-delay="200">
-                <img src="/img.crema.jpg" alt="Crema Especial" onerror="this.classList.add('error'); this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%23ffffff\' d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z\'/%3E%3C/svg%3E';">
-                <div class="image-overlay">
-                    <h3>Crema Especial</h3>
-                    <p>Nuestra receta secreta</p>
+            <div class="product-card">
+                <img src="img.crema.jpg" alt="Crema Especial" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Crema Especial</h3>
+                    <p class="product-description">Nuestra cremosa receta secreta</p>
+                    <span class="product-price">Incluida en cada pedido</span>
                 </div>
             </div>
-            <div class="image-card" data-aos="zoom-in" data-aos-delay="300">
-                <img src="/img.caramelo.jpg" alt="Caramelo" onerror="this.classList.add('error'); this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%23ffffff\' d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z\'/%3E%3C/svg%3E';">
-                <div class="image-overlay">
-                    <h3>Toque de Caramelo</h3>
-                    <p>El complemento perfecto</p>
+            <div class="product-card">
+                <img src="img.caramelo.jpg" alt="Toque de Caramelo" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Toque de Caramelo</h3>
+                    <p class="product-description">El complemento perfecto para tus fresas</p>
+                    <span class="product-price">Topping adicional</span>
                 </div>
             </div>
         </div>
+    </section>
 
-        <a href="formulario.html" class="button" data-aos="fade-up">¡Haz tu Pedido Ahora!</a>
-
-        <div class="social-media" data-aos="fade-up">
-            <a href="#" class="fab fa-facebook" data-tooltip="Síguenos en Facebook"></a>
-            <a href="#" class="fab fa-instagram" data-tooltip="Síguenos en Instagram"></a>
-            <a href="#" class="fab fa-whatsapp" data-tooltip="Contáctanos por WhatsApp"></a>
+    <section id="caracteristicas" class="features">
+        <h2 class="section-title">¿Por qué elegirnos?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-star feature-icon"></i>
+                <h3>Calidad Premium</h3>
+                <p>Seleccionamos las mejores fresas frescas del día</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-truck feature-icon"></i>
+                <h3>Entrega Rápida</h3>
+                <p>Llevamos tu pedido en el menor tiempo posible</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-heart feature-icon"></i>
+                <h3>Preparación con Amor</h3>
+                <p>Cada pedido es preparado con dedicación especial</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-cookie feature-icon"></i>
+                <h3>Toppings Variados</h3>
+                <p>Gran variedad de complementos para personalizar</p>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <section id="contacto" class="contact">
+        <h2 class="section-title">Contáctanos</h2>
+        <div class="social-links">
+            <a href="fb://profile/cremafresa_lover00" class="social-link" onclick="openSocialMedia('https://www.facebook.com/cremafresa_lover00', 'fb://profile/cremafresa_lover00'); return false;">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="instagram://user?username=cremafresa_lover00" class="social-link" onclick="openSocialMedia('https://www.instagram.com/cremafresa_lover00', 'instagram://user?username=cremafresa_lover00'); return false;">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="whatsapp://send?phone=573218225925" class="social-link" onclick="openSocialMedia('https://wa.me/573218225925', 'whatsapp://send?phone=573218225925'); return false;">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="payment-methods">
+            <div class="payment-card">
+                <i class="fas fa-mobile-alt payment-icon"></i>
+                <div>
+                    <h3>Nequi</h3>
+                    <p>321 822 5925</p>
+                </div>
+            </div>
+            <div class="payment-card" onclick="openNequi()">
+                <i class="fas fa-qrcode payment-icon"></i>
+                <div>
+                    <h3>Pago con QR</h3>
+                    <p>Escanea y paga</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <script>
-        AOS.init({
-            duration: 1000,
-            once: true,
-            mirror: false
-        });
-
-        // GSAP Animations
-        gsap.from("header", {
-            duration: 1.5,
-            y: -100,
-            opacity: 0,
-            ease: "power4.out"
-        });
-
-        gsap.from(".image-card", {
-            duration: 1,
-            stagger: 0.2,
-            opacity: 0,
-            y: 50,
-            ease: "back.out(1.7)",
-            scrollTrigger: {
-                trigger: ".image-container",
-                start: "top center+=100",
-                toggleActions: "play none none reverse"
+        function openSocialMedia(webUrl, appUrl) {
+            let appOpened = false;
+            
+            function openInBrowser() {
+                if (!appOpened && confirm('¿Deseas abrir el enlace en el navegador?')) {
+                    window.location.href = webUrl;
+                }
             }
-        });
 
-        // Smooth scroll
+            const now = Date.now();
+            const timeoutDuration = 1000;
+
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    appOpened = true;
+                }
+            });
+
+            window.location.href = appUrl;
+
+            setTimeout(function() {
+                if (!appOpened && (Date.now() - now < timeoutDuration + 100)) {
+                    openInBrowser();
+                }
+            }, timeoutDuration);
+        }
+
+        function openNequi() {
+            window.location.href = "nequi://send?phone=573218225925";
+        }
+
+        // Animación suave al hacer scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
