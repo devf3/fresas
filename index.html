@@ -66,10 +66,6 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
         }
 
         #content-wrapper {
@@ -82,7 +78,7 @@
         }
 
         .navbar {
-            position: sticky;
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
@@ -535,9 +531,8 @@
 
         // Optimización de rendimiento para animaciones
         let scrollTimeout;
-        const wrapper = document.getElementById('content-wrapper');
         
-        wrapper.addEventListener('scroll', () => {
+        window.addEventListener('scroll', () => {
             if (!document.body.classList.contains('is-scrolling')) {
                 document.body.classList.add('is-scrolling');
             }
@@ -548,30 +543,16 @@
             }, 150);
         }, { passive: true });
 
-        // Prevenir el scroll bounce en iOS
-        document.body.addEventListener('touchmove', function(e) {
-            if (!wrapper.contains(e.target)) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-
-        // Restaurar la posición del scroll cuando se vuelve de otra app
-        window.addEventListener('pageshow', function(event) {
-            if (event.persisted) {
-                // Si la página fue restaurada desde el bfcache
-                window.scrollTo(0, 0);
-                wrapper.scrollTo(0, 0);
-            }
-        });
-
         // Manejar el estado de la página cuando se vuelve de otra app
         document.addEventListener('visibilitychange', function() {
             if (!document.hidden) {
-                // La página está visible nuevamente
-                document.body.style.display = 'none';
-                setTimeout(() => {
-                    document.body.style.display = '';
-                }, 0);
+                // Forzar un reflow suave cuando la página vuelve a ser visible
+                requestAnimationFrame(() => {
+                    document.body.style.opacity = '0.99';
+                    requestAnimationFrame(() => {
+                        document.body.style.opacity = '1';
+                    });
+                });
             }
         });
     </script>
