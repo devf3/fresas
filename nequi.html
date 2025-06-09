@@ -65,6 +65,11 @@
             justify-content: center;
             line-height: 1.6;
             padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
         }
 
         .container {
@@ -79,6 +84,7 @@
             width: 400px;
             box-shadow: var(--card-shadow);
             animation: fadeInScale 0.5s ease-out;
+            will-change: transform, opacity;
         }
 
         .loading-icon {
@@ -88,6 +94,7 @@
             animation: spin 1.5s infinite linear;
             display: inline-block;
             text-shadow: 0 0 15px rgba(255, 31, 77, 0.5);
+            will-change: transform;
         }
 
         h3 {
@@ -118,6 +125,8 @@
             transition: var(--transition);
             margin-top: 1.5rem;
             font-size: 1.1rem;
+            cursor: pointer;
+            will-change: transform;
         }
 
         .action-button:hover {
@@ -135,6 +144,13 @@
             animation: pulse 2s infinite ease-in-out;
         }
 
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 2rem;
@@ -142,6 +158,10 @@
 
             h3 {
                 font-size: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
             }
         }
 
@@ -168,29 +188,104 @@
         <p>
             Estamos preparando todo para procesar tu pago...
         </p>
-        <a href="nequi://send?phone=573218225925" class="action-button">
+        <button onclick="tryOpenNequi()" class="action-button">
             <i class="fas fa-external-link-alt"></i>
             Abrir Nequi
-        </a>
+        </button>
     </div>
 
     <script>
-        window.location.href = "nequi://send?phone=573218225925";
+        let attempts = 0;
+        const maxAttempts = 3;
+        let lastAttemptTime = 0;
+        const cooldownTime = 2000; // 2 segundos entre intentos
 
-        setTimeout(() => {
-            const container = document.querySelector('.container');
-            if (container) {
-                container.innerHTML = `
-                    <i class="fas fa-exclamation-circle loading-icon error-icon"></i>
-                    <h3>No se pudo abrir Nequi</h3>
-                    <p>Parece que no tienes la app de Nequi instalada.</p>
-                    <a href="https://play.google.com/store/apps/details?id=com.nequi.MobileApp" target="_blank" class="action-button">
-                        <i class="fas fa-download"></i>
-                        Descargar Nequi
-                    </a>
-                `;
+        function tryOpenNequi() {
+            const now = Date.now();
+            if (now - lastAttemptTime < cooldownTime) {
+                return; // Evitar múltiples clics rápidos
             }
-        }, 3000);
+            lastAttemptTime = now;
+
+            const nequiUrl = "nequi://send?phone=573218225925";
+            
+            // Intentar abrir la app
+            const openApp = () => {
+                window.location.href = nequiUrl;
+            };
+
+            // Manejar el caso cuando la app no está instalada
+            const handleAppNotInstalled = () => {
+                const container = document.querySelector('.container');
+                if (container) {
+                    container.innerHTML = `
+                        <i class="fas fa-exclamation-circle loading-icon error-icon"></i>
+                        <h3>No se pudo abrir Nequi</h3>
+                        <p>Parece que no tienes la app de Nequi instalada.</p>
+                        <div class="button-group">
+                            <a href="https://play.google.com/store/apps/details?id=com.nequi.MobileApp" 
+                               target="_blank" 
+                               class="action-button">
+                                <i class="fas fa-download"></i>
+                                Descargar Nequi
+                            </a>
+                            <button onclick="tryOpenNequi()" class="action-button">
+                                <i class="fas fa-redo"></i>
+                                Intentar de nuevo
+                            </button>
+                        </div>
+                    `;
+                }
+            };
+
+            // Detectar si la app está instalada
+            let appOpened = false;
+            const startTime = Date.now();
+
+            // Escuchar cambios de visibilidad
+            const visibilityHandler = () => {
+                if (document.hidden) {
+                    appOpened = true;
+                    attempts = 0; // Resetear intentos si la app se abre
+                }
+            };
+
+            document.addEventListener('visibilitychange', visibilityHandler);
+
+            // Intentar abrir la app
+            openApp();
+
+            // Verificar después de un tiempo si la app se abrió
+            setTimeout(() => {
+                document.removeEventListener('visibilitychange', visibilityHandler);
+                
+                if (!appOpened && Date.now() - startTime < 1500) {
+                    attempts++;
+                    if (attempts >= maxAttempts) {
+                        handleAppNotInstalled();
+                    }
+                }
+            }, 1000);
+        }
+
+        // Iniciar el proceso automáticamente
+        tryOpenNequi();
+
+        // Manejar el regreso a la página
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                // Forzar un repaint para evitar la pantalla blanca
+                document.body.style.display = 'none';
+                setTimeout(() => {
+                    document.body.style.display = '';
+                }, 0);
+            }
+        });
+
+        // Prevenir el scroll bounce
+        document.body.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
     </script>
 </body>
 </html>

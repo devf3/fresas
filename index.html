@@ -65,10 +65,24 @@
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        #content-wrapper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
 
         .navbar {
-            position: fixed;
+            position: sticky;
             top: 0;
             left: 0;
             right: 0;
@@ -80,6 +94,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            will-change: transform;
         }
 
         .logo {
@@ -359,116 +374,118 @@
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <a href="#" class="logo">
-            <i class="fas fa-strawberry"></i>
-            Fresas Con Crema
-        </a>
-        <div class="nav-links">
-            <a href="#productos">Productos</a>
-            <a href="#caracteristicas">Características</a>
-            <a href="#contacto">Contacto</a>
-        </div>
-    </nav>
-
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Deliciosas Fresas con Crema</h1>
-            <p>Descubre el sabor perfecto de nuestras fresas frescas combinadas con la más cremosa preparación</p>
-            <a href="pagina.html" class="cta-button">
-                <i class="fas fa-shopping-cart"></i>
-                Hacer Pedido Ahora
+    <div id="content-wrapper">
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <i class="fas fa-strawberry"></i>
+                Fresas Con Crema
             </a>
-        </div>
-    </section>
+            <div class="nav-links">
+                <a href="#productos">Productos</a>
+                <a href="#caracteristicas">Características</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+        </nav>
 
-    <section id="productos" class="products">
-        <h2 class="section-title">Nuestros Productos</h2>
-        <div class="products-grid">
-            <div class="product-card">
-                <img src="img.fresas.topings.jpg" alt="Fresas con Toppings" class="product-image" loading="lazy">
-                <div class="product-info">
-                    <h3 class="product-title">Fresas con Toppings</h3>
-                    <p class="product-description">Deliciosas fresas cubiertas con tus toppings favoritos</p>
-                    <span class="product-price">Desde $10.000</span>
-                </div>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Deliciosas Fresas con Crema</h1>
+                <p>Descubre el sabor perfecto de nuestras fresas frescas combinadas con la más cremosa preparación</p>
+                <a href="pagina.html" class="cta-button">
+                    <i class="fas fa-shopping-cart"></i>
+                    Hacer Pedido Ahora
+                </a>
             </div>
-            <div class="product-card">
-                <img src="img.crema.jpg" alt="Crema Especial" class="product-image" loading="lazy">
-                <div class="product-info">
-                    <h3 class="product-title">Crema Especial</h3>
-                    <p class="product-description">Nuestra cremosa receta secreta</p>
-                    <span class="product-price">Incluida en cada pedido</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="img.caramelo.jpg" alt="Toque de Caramelo" class="product-image" loading="lazy">
-                <div class="product-info">
-                    <h3 class="product-title">Toque de Caramelo</h3>
-                    <p class="product-description">El complemento perfecto para tus fresas</p>
-                    <span class="product-price">Topping adicional</span>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="caracteristicas" class="features">
-        <h2 class="section-title">¿Por qué elegirnos?</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <i class="fas fa-star feature-icon"></i>
-                <h3>Calidad Premium</h3>
-                <p>Seleccionamos las mejores fresas frescas del día</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-truck feature-icon"></i>
-                <h3>Entrega Rápida</h3>
-                <p>Llevamos tu pedido en el menor tiempo posible</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-heart feature-icon"></i>
-                <h3>Preparación con Amor</h3>
-                <p>Cada pedido es preparado con dedicación especial</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-cookie feature-icon"></i>
-                <h3>Toppings Variados</h3>
-                <p>Gran variedad de complementos para personalizar</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="contacto" class="contact">
-        <h2 class="section-title">Contáctanos</h2>
-        <div class="social-links">
-            <a href="fb://profile/cremafresa_lover00" class="social-link" onclick="openSocialMedia('https://www.facebook.com/cremafresa_lover00', 'fb://profile/cremafresa_lover00'); return false;">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="instagram://user?username=cremafresa_lover00" class="social-link" onclick="openSocialMedia('https://www.instagram.com/cremafresa_lover00', 'instagram://user?username=cremafresa_lover00'); return false;">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="whatsapp://send?phone=573218225925" class="social-link" onclick="openSocialMedia('https://wa.me/573218225925', 'whatsapp://send?phone=573218225925'); return false;">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-        </div>
-
-        <div class="payment-methods">
-            <div class="payment-card">
-                <i class="fas fa-mobile-alt payment-icon"></i>
-                <div>
-                    <h3>Nequi</h3>
-                    <p>321 822 5925</p>
+        <section id="productos" class="products">
+            <h2 class="section-title">Nuestros Productos</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="img.fresas.topings.jpg" alt="Fresas con Toppings" class="product-image" loading="lazy">
+                    <div class="product-info">
+                        <h3 class="product-title">Fresas con Toppings</h3>
+                        <p class="product-description">Deliciosas fresas cubiertas con tus toppings favoritos</p>
+                        <span class="product-price">Desde $10.000</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="img.crema.jpg" alt="Crema Especial" class="product-image" loading="lazy">
+                    <div class="product-info">
+                        <h3 class="product-title">Crema Especial</h3>
+                        <p class="product-description">Nuestra cremosa receta secreta</p>
+                        <span class="product-price">Incluida en cada pedido</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="img.caramelo.jpg" alt="Toque de Caramelo" class="product-image" loading="lazy">
+                    <div class="product-info">
+                        <h3 class="product-title">Toque de Caramelo</h3>
+                        <p class="product-description">El complemento perfecto para tus fresas</p>
+                        <span class="product-price">Topping adicional</span>
+                    </div>
                 </div>
             </div>
-            <div class="payment-card" onclick="openNequi()">
-                <i class="fas fa-qrcode payment-icon"></i>
-                <div>
-                    <h3>Pago con QR</h3>
-                    <p>Escanea y paga</p>
+        </section>
+
+        <section id="caracteristicas" class="features">
+            <h2 class="section-title">¿Por qué elegirnos?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-star feature-icon"></i>
+                    <h3>Calidad Premium</h3>
+                    <p>Seleccionamos las mejores fresas frescas del día</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-truck feature-icon"></i>
+                    <h3>Entrega Rápida</h3>
+                    <p>Llevamos tu pedido en el menor tiempo posible</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-heart feature-icon"></i>
+                    <h3>Preparación con Amor</h3>
+                    <p>Cada pedido es preparado con dedicación especial</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-cookie feature-icon"></i>
+                    <h3>Toppings Variados</h3>
+                    <p>Gran variedad de complementos para personalizar</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <section id="contacto" class="contact">
+            <h2 class="section-title">Contáctanos</h2>
+            <div class="social-links">
+                <a href="fb://profile/cremafresa_lover00" class="social-link" onclick="openSocialMedia('https://www.facebook.com/cremafresa_lover00', 'fb://profile/cremafresa_lover00'); return false;">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="instagram://user?username=cremafresa_lover00" class="social-link" onclick="openSocialMedia('https://www.instagram.com/cremafresa_lover00', 'instagram://user?username=cremafresa_lover00'); return false;">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="whatsapp://send?phone=573218225925" class="social-link" onclick="openSocialMedia('https://wa.me/573218225925', 'whatsapp://send?phone=573218225925'); return false;">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+            <div class="payment-methods">
+                <div class="payment-card">
+                    <i class="fas fa-mobile-alt payment-icon"></i>
+                    <div>
+                        <h3>Nequi</h3>
+                        <p>321 822 5925</p>
+                    </div>
+                </div>
+                <div class="payment-card" onclick="openNequi()">
+                    <i class="fas fa-qrcode payment-icon"></i>
+                    <div>
+                        <h3>Pago con QR</h3>
+                        <p>Escanea y paga</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <script>
         function openSocialMedia(webUrl, appUrl) {
@@ -502,14 +519,60 @@
             window.location.href = "nequi://send?phone=573218225925";
         }
 
-        // Animación suave al hacer scroll
+        // Animación suave al hacer scroll con mejor rendimiento
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
+        });
+
+        // Optimización de rendimiento para animaciones
+        let scrollTimeout;
+        const wrapper = document.getElementById('content-wrapper');
+        
+        wrapper.addEventListener('scroll', () => {
+            if (!document.body.classList.contains('is-scrolling')) {
+                document.body.classList.add('is-scrolling');
+            }
+            
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                document.body.classList.remove('is-scrolling');
+            }, 150);
+        }, { passive: true });
+
+        // Prevenir el scroll bounce en iOS
+        document.body.addEventListener('touchmove', function(e) {
+            if (!wrapper.contains(e.target)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Restaurar la posición del scroll cuando se vuelve de otra app
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                // Si la página fue restaurada desde el bfcache
+                window.scrollTo(0, 0);
+                wrapper.scrollTo(0, 0);
+            }
+        });
+
+        // Manejar el estado de la página cuando se vuelve de otra app
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                // La página está visible nuevamente
+                document.body.style.display = 'none';
+                setTimeout(() => {
+                    document.body.style.display = '';
+                }, 0);
+            }
         });
     </script>
 </body>
