@@ -14,13 +14,7 @@
             --dark-bg: rgba(0, 0, 0, 0.7);
             --glass-bg: rgba(255, 255, 255, 0.1);
             --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            --transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @keyframes fadeInScale {
@@ -64,9 +58,7 @@
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color), var(--secondary-color));
-            background-size: 200% 200%;
-            animation: gradientBG 15s ease infinite;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             color: var(--text-color);
             min-height: 100vh;
             line-height: 1.6;
